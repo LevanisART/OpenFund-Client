@@ -1,1 +1,1 @@
-// Here will be exported controllers
+export * from "./authControllers";
