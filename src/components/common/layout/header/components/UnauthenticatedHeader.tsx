@@ -1,44 +1,25 @@
-import { Button, Modal } from "antd";
-import { LoginModalContent, SignUpModalContent } from "./modal-contents";
-import { useState } from "react";
+import { Modal } from "antd";
+import { LoginModalContent } from "./modal-contents";
+import { useLoginModalStore } from "@/store";
 
 const UnauthenticatedHeader = () => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isLogin, setIsLogin] = useState<boolean>(false);
+  const { isOpen, open, close } = useLoginModalStore();
 
-  const handleModalOpen = (login: boolean) => {
-    setIsModalOpen(true);
-    setIsLogin(login);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
   return (
     <>
       <Modal
-        okButtonProps={{ hidden: true }}
-        cancelButtonProps={{ hidden: true }}
-        open={isModalOpen}
-        onCancel={handleCancel}
+        open={isOpen}
+        onCancel={close}
+        footer={null}
+        closable={false}
+        centered
+        className="login-modal-wrapper"
+        width={571}
       >
-        {isLogin ? (
-          <LoginModalContent
-            handleCancel={handleCancel}
-            setIsLogin={setIsLogin}
-          />
-        ) : (
-          <SignUpModalContent
-            handleCancel={handleCancel}
-            setIsLogin={setIsLogin}
-          />
-        )}
+        <LoginModalContent onClose={close} />
       </Modal>
       <div className="header__auth-buttons">
-        <button
-          onClick={() => handleModalOpen(true)}
-          className="header__login-btn"
-        >
+        <button onClick={open} className="header__login-btn">
           შესვლა
         </button>
       </div>

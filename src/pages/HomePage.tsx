@@ -1,13 +1,14 @@
 import "../styles/main.scss";
+import { useLoginModalStore } from "@/store";
 
 // Local asset paths
 const imgDashboard = "/images/dashboard.png";
-const imgLogo = "/images/logo.png";
 const imgLogoIcon = "/images/logo-icon.png";
 const imgCharacter = "/images/character-1.png";
 const imgCharacter2 = "/images/character-2.png";
 
 const HomePage = () => {
+  const { open: openLoginModal } = useLoginModalStore();
   return (
     <div className="home">
       {/* Hero Section */}
@@ -31,7 +32,12 @@ const HomePage = () => {
             </h1>
 
             <div className="home__hero-buttons">
-              <button className="home__btn home__btn--primary">დაწყება</button>
+              <button
+                className="home__btn home__btn--primary"
+                onClick={openLoginModal}
+              >
+                დაწყება
+              </button>
               <button className="home__btn home__btn--secondary">
                 როგორ მუშაობს?
               </button>
