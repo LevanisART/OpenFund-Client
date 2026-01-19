@@ -1,5 +1,6 @@
 import "../styles/main.scss";
 import { useLoginModalStore } from "@/store";
+import { useState } from "react";
 
 // Local asset paths
 const imgDashboard = "/images/dashboard.png";
@@ -7,8 +8,70 @@ const imgLogoIcon = "/images/logo-icon.png";
 const imgCharacter = "/images/character-1.png";
 const imgCharacter2 = "/images/character-2.png";
 
+const faqData = [
+  {
+    id: 1,
+    question: "რამდენია საკომისიო?",
+    answer: (
+      <>
+        <p>
+          კრეატორისთვის საკომისიო არის 0%. თანხა ისახება მომენტალურად თქვენს
+          საბანკო ანგარიშზე.
+        </p>
+        <p>დონატორისგან ბანკი იღებს მაქსიმუმ 2.5%-ს</p>
+      </>
+    ),
+  },
+  {
+    id: 2,
+    question: (
+      <>
+        როგორ გამოვიყენო
+        <br />
+        სტრიმზე?
+      </>
+    ),
+    answer: <p>ტექსტი</p>,
+  },
+  {
+    id: 3,
+    question: "რამდენად დაცულია?",
+    answer: <p>ტექსტი</p>,
+  },
+  {
+    id: 4,
+    question: "როგორ გავიტანო თანხა?",
+    answer: <p>ტექსტი</p>,
+  },
+  {
+    id: 5,
+    question: (
+      <>
+        რით განსხვავდება სხვა
+        <br />
+        პლატფორმებისგან?
+      </>
+    ),
+    answer: <p>ტექსტი</p>,
+  },
+];
+
 const HomePage = () => {
   const { open: openLoginModal } = useLoginModalStore();
+  const [activeFaqIds, setActiveFaqIds] = useState<number[]>([1]);
+  const [closingFaqIds, setClosingFaqIds] = useState<number[]>([]);
+
+  const toggleFaq = (id: number) => {
+    if (activeFaqIds.includes(id)) {
+      setClosingFaqIds((prev) => [...prev, id]);
+      setTimeout(() => {
+        setActiveFaqIds((prev) => prev.filter((faqId) => faqId !== id));
+        setClosingFaqIds((prev) => prev.filter((faqId) => faqId !== id));
+      }, 200);
+    } else {
+      setActiveFaqIds((prev) => [...prev, id]);
+    }
+  };
   return (
     <div className="home">
       {/* Hero Section */}
@@ -38,7 +101,14 @@ const HomePage = () => {
               >
                 დაწყება
               </button>
-              <button className="home__btn home__btn--secondary">
+              <button
+                className="home__btn home__btn--secondary"
+                onClick={() =>
+                  document
+                    .getElementById("faq")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+              >
                 როგორ მუშაობს?
               </button>
             </div>
@@ -66,7 +136,7 @@ const HomePage = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="home__faq">
+      <section id="faq" className="home__faq">
         <div className="home__faq-container">
           {/* Left side - Title */}
           <div className="home__faq-header">
@@ -86,126 +156,60 @@ const HomePage = () => {
 
           {/* Right side - FAQ Items */}
           <div className="home__faq-list">
-            {/* FAQ Item 1 - Active/Open */}
-            <div className="home__faq-item home__faq-item--active">
-              <div className="home__faq-divider" />
-              <p className="home__faq-question">რამდენია საკომისიო?</p>
-              <div className="home__faq-answer">
-                <p>
-                  კრეატორისთვის საკომისიო არის 0%. თანხა ისახება მომენტალურად
-                  თქვენს საბანკო ანგარიშზე.
-                </p>
-                <p>დონატორისგან ბანკი იღებს მაქსიმუმ 2.5%-ს</p>
-              </div>
-            </div>
+            {faqData.map((faq) => {
+              const isActive = activeFaqIds.includes(faq.id);
+              const isClosing = closingFaqIds.includes(faq.id);
+              return (
+                <div
+                  key={faq.id}
+                  className={`home__faq-item ${isActive ? "home__faq-item--active" : ""} ${isClosing ? "home__faq-item--closing" : ""}`}
+                >
+                  <div className="home__faq-divider">
+                    {isActive && (
+                      <div
+                        className={`home__faq-divider-progress ${isClosing ? "home__faq-divider-progress--closing" : ""}`}
+                      />
+                    )}
+                  </div>
 
-            {/* FAQ Item 2 */}
-            <div className="home__faq-item">
-              <div className="home__faq-divider" />
-              <div className="home__faq-row">
-                <p className="home__faq-question">
-                  როგორ გამოვიყენო
-                  <br />
-                  სტრიმზე?
-                </p>
-                <button className="home__faq-toggle">
-                  <svg
-                    width="11"
-                    height="6"
-                    viewBox="0 0 11 6"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    className="home__faq-row"
+                    onClick={() => toggleFaq(faq.id)}
+                    style={{ cursor: "pointer" }}
                   >
-                    <path
-                      d="M10 1L5.5 5L1 1"
-                      stroke="black"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
+                    <p className="home__faq-question">{faq.question}</p>
+                    <button
+                      className={`home__faq-toggle ${isActive && !isClosing ? "home__faq-toggle--active" : ""} ${isClosing ? "home__faq-toggle--closing" : ""}`}
+                      aria-label={isActive ? "Close FAQ" : "Open FAQ"}
+                    >
+                      <svg
+                        width="11"
+                        height="6"
+                        viewBox="0 0 11 6"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M10 1L5.5 5L1 1"
+                          stroke="black"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </div>
 
-            {/* FAQ Item 3 */}
-            <div className="home__faq-item">
-              <div className="home__faq-divider" />
-              <div className="home__faq-row">
-                <p className="home__faq-question">რამდენად დაცულია?</p>
-                <button className="home__faq-toggle">
-                  <svg
-                    width="11"
-                    height="6"
-                    viewBox="0 0 11 6"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M10 1L5.5 5L1 1"
-                      stroke="black"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            {/* FAQ Item 4 */}
-            <div className="home__faq-item">
-              <div className="home__faq-divider" />
-              <div className="home__faq-row">
-                <p className="home__faq-question">როგორ გავიტანო თანხა?</p>
-                <button className="home__faq-toggle">
-                  <svg
-                    width="11"
-                    height="6"
-                    viewBox="0 0 11 6"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M10 1L5.5 5L1 1"
-                      stroke="black"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            {/* FAQ Item 5 */}
-            <div className="home__faq-item">
-              <div className="home__faq-divider" />
-              <div className="home__faq-row">
-                <p className="home__faq-question">
-                  რით განსხვავდება სხვა
-                  <br />
-                  პლატფორმებისგან?
-                </p>
-                <button className="home__faq-toggle">
-                  <svg
-                    width="11"
-                    height="6"
-                    viewBox="0 0 11 6"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M10 1L5.5 5L1 1"
-                      stroke="black"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
+                  {isActive && (
+                    <div
+                      className={`home__faq-answer ${isClosing ? "home__faq-answer--closing" : ""}`}
+                    >
+                      {faq.answer}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
