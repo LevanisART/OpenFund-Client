@@ -1,0 +1,564 @@
+@use "../variables" as *;
+
+.home {
+  width: 100%;
+  background-color: var(--color-bg-page);
+
+  // ==========================================
+  // HERO SECTION
+  // ==========================================
+  &__hero {
+    position: relative;
+    width: 100%;
+    background: linear-gradient(
+      180deg,
+      var(--color-bg-cream) 11%,
+      var(--color-bg-cream) 47%,
+      var(--color-bg-page) 100%
+    );
+    overflow: hidden;
+    padding-top: 80px;
+
+    @include mobile {
+      padding-top: 40px;
+    }
+  }
+
+  &__hero-container {
+    @include container;
+    display: grid;
+    grid-template-columns: 200px 1fr 260px;
+    gap: 20px;
+    align-items: start;
+
+    @include tablet {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+
+  // Left decoration (character with donation)
+  &__hero-decoration {
+    position: relative;
+
+    &--left {
+      @include tablet {
+        display: none;
+      }
+    }
+
+    &--right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      @include tablet {
+        display: none;
+      }
+    }
+  }
+
+  &__character-img {
+    display: block;
+    width: 188px;
+    height: 142px;
+  }
+
+  &__donation-bubble {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  &__donation-name {
+    font-weight: 700;
+    font-size: 19px;
+    font-feature-settings: "case" on;
+    color: var(--color-primary-dark);
+    margin-bottom: 4px;
+  }
+
+  &__donation-message {
+    font-size: 14px;
+    color: var(--color-text-primary);
+  }
+
+  // Right decoration (gift goal)
+  &__gift-icon {
+    width: 82px;
+    height: 114px;
+    margin-bottom: 20px;
+  }
+
+  &__goal-box {
+    text-align: center;
+  }
+
+  &__goal-title {
+    font-weight: 600;
+    font-size: 15px;
+    font-feature-settings: "case" on;
+    color: var(--color-text-primary);
+    margin-bottom: 8px;
+  }
+
+  &__goal-progress {
+    width: 237px;
+    height: 38px;
+    background: var(--color-bg-card);
+    border-radius: var(--radius-full);
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__goal-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    background: var(--color-primary);
+    border-radius: var(--radius-full) 0 0 var(--radius-full);
+  }
+
+  &__goal-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+  }
+
+  // Center content
+  &__hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  &__hero-title {
+    font-weight: 900;
+    font-size: 57px;
+    line-height: 1.26;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    margin: 0 0 30px;
+    font-feature-settings: "case" on;
+
+    @media (min-width: 1600px) {
+      font-size: 64px;
+    }
+
+    @include desktop {
+      font-size: 48px;
+    }
+
+    @include tablet {
+      font-size: 40px;
+      margin-bottom: 40px;
+    }
+
+    @include mobile {
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+  }
+
+  &__hero-buttons {
+    display: flex;
+    align-items: center;
+    gap: 23px;
+
+    @include mobile {
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+    }
+  }
+
+  &__btn {
+    @include button-base;
+    height: 62px;
+    padding: 16px 14px;
+    font-size: 20px;
+    font-feature-settings: "case" on;
+
+    @include mobile {
+      width: 100%;
+      height: 56px;
+      font-size: 18px;
+    }
+
+    &--primary {
+      width: 244px;
+      background-color: var(--color-primary);
+      color: var(--color-text-primary);
+
+      @include mobile {
+        width: 100%;
+      }
+    }
+
+    &--secondary {
+      width: 277px;
+      background-color: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-primary);
+      font-weight: 500;
+
+      @include mobile {
+        width: 100%;
+      }
+    }
+  }
+
+  // Dashboard preview
+  &__dashboard-preview {
+    position: relative;
+    width: 100%;
+    margin-top: 70px;
+    padding-bottom: 100px;
+
+    @include tablet {
+      margin-top: 40px;
+      padding-bottom: 60px;
+    }
+  }
+
+  &__dashboard-img {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: var(--radius-lg);
+    }
+  }
+
+  // ==========================================
+  // FAQ SECTION
+  // ==========================================
+  &__faq {
+    padding: var(--section-padding-y) 0;
+
+    @include tablet {
+      padding: 20px 0;
+    }
+  }
+
+  &__faq-container {
+    @include container;
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+
+    @include tablet {
+      flex-direction: column;
+    }
+  }
+
+  &__faq-header {
+    max-width: 50%;
+    @include desktop {
+      width: 300px;
+      max-width: 100%;
+    }
+
+    @include tablet {
+      width: 100%;
+    }
+  }
+
+  &__faq-badge {
+    display: inline-block;
+    background-color: var(--color-primary);
+    padding: 2px 14px;
+    border-radius: var(--radius-md);
+    margin-bottom: 15px;
+
+    @include mobile {
+      margin-bottom: 24px;
+    }
+  }
+
+  &__faq-badge-text {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 26px;
+    color: var(--color-text-primary);
+  }
+
+  &__faq-title {
+    font-weight: 700;
+    font-size: 50px;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    margin: 0;
+    font-feature-settings: "case" on;
+
+    @include desktop {
+      font-size: 40px;
+    }
+
+    @include tablet {
+      font-size: 36px;
+    }
+
+    @include mobile {
+      font-size: 28px;
+    }
+  }
+
+  &__faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 50%;
+
+    @include mobile {
+      gap: 24px;
+      max-width: 100%;
+    }
+  }
+
+  &__faq-item {
+    &--active {
+      .home__faq-divider {
+        height: 5px;
+        background-color: var(--color-primary);
+      }
+
+      .home__faq-question {
+        color: var(--color-text-primary);
+      }
+    }
+  }
+
+  &__faq-divider {
+    width: 100%;
+    height: 3px;
+    background-color: var(--color-border-light);
+    border-radius: 2px;
+    margin-bottom: 30px;
+
+    @include mobile {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__faq-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  &__faq-question {
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 1.5;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin: 0;
+    font-feature-settings: "case" on;
+
+    @include desktop {
+      font-size: 24px;
+    }
+
+    @include mobile {
+      font-size: 20px;
+    }
+  }
+
+  &__faq-toggle {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #9a98a2;
+    border-radius: 17px;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+
+    @include mobile {
+      width: 36px;
+      height: 36px;
+      border-radius: 14px;
+    }
+  }
+
+  &__faq-answer {
+    margin-top: 18px;
+    font-size: 15px;
+    line-height: 1.57;
+    color: var(--color-text-primary);
+
+    p {
+      margin: 0 0 1em;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    @include mobile {
+      font-size: 14px;
+    }
+  }
+
+  // ==========================================
+  // FOOTER SECTION
+  // ==========================================
+  &__footer {
+    background-color: var(--color-primary-light);
+    padding: 56px 80px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+
+    @include mobile {
+      padding: 40px 20px;
+    }
+  }
+
+  &__footer-card {
+    width: 100%;
+    max-width: 1650px;
+    background-color: var(--color-bg-card);
+    border-radius: var(--radius-md);
+    padding: 38px 37px;
+
+    @include tablet {
+      padding: 30px 24px;
+    }
+
+    @include mobile {
+      padding: 24px 20px;
+    }
+  }
+
+  &__footer-content {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr 1fr;
+    gap: 40px;
+
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include mobile {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+
+  &__footer-logo {
+    width: 39px;
+    height: 36px;
+  }
+
+  &__footer-section {
+    min-width: 150px;
+  }
+
+  &__footer-heading {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    margin: 0 0 14px;
+
+    @include mobile {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__footer-link {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+
+    &:hover {
+      color: var(--color-primary);
+    }
+
+    @include mobile {
+      font-size: 15px;
+    }
+  }
+
+  &__footer-social {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__social-link {
+    width: 43px;
+    height: 43px;
+    border: 1px solid #cdcbd0;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+
+    @include mobile {
+      width: 38px;
+      height: 38px;
+    }
+  }
+
+  &__copyright {
+    margin-top: 20px;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--color-text-primary);
+    text-align: center;
+
+    @include mobile {
+      font-size: 14px;
+      margin-top: 16px;
+    }
+  }
+}

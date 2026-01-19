@@ -1,0 +1,149 @@
+@use "../variables" as *;
+
+.header {
+  width: 100%;
+  background-color: #f6f5f2;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  padding: 0 48px;
+
+  @include tablet {
+    padding: 0 32px;
+  }
+
+  @include mobile {
+    height: 80px;
+    padding: 0 20px;
+  }
+
+  &__container {
+    width: 100%;
+    max-width: 1650px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  // Logo section
+  &__logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__logo-img {
+    width: 185px;
+
+    @include mobile {
+      width: 130px;
+    }
+  }
+
+  &__logo-text {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 72px;
+    color: #000;
+    font-family: "Lota Grotesque Alt 3", sans-serif;
+
+    @include mobile {
+      font-size: 24px;
+      line-height: 1.2;
+    }
+  }
+
+  // Right side section
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    @include mobile {
+      gap: 16px;
+    }
+  }
+
+  &__settings-btn {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    border: 1px solid rgba(0, 0, 0, 0.65);
+    border-radius: 100px;
+
+    @include mobile {
+      width: 40px;
+      height: 40px;
+      svg {
+        width: 15px;
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  // Authenticated user profile
+  &__profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #2563eb;
+    cursor: pointer;
+    background: white;
+  }
+
+  &__profile-letter {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000;
+  }
+
+  // Unauthenticated buttons
+  &__auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &__login-btn {
+    background-color: #19171c;
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+    text-transform: uppercase;
+    padding: 0 36px;
+    height: 52px;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-family: "noto-sans-georgian", sans-serif;
+    font-feature-settings: "case" on;
+
+    &:hover {
+      background-color: #000;
+    }
+
+    @include mobile {
+      font-size: 16px;
+      height: 44px;
+      padding: 0 20px;
+    }
+  }
+}

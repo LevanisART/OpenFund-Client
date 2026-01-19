@@ -34,11 +34,13 @@ const UnauthenticatedHeader = () => {
           />
         )}
       </Modal>
-      <div className="flex items-center gap-6">
-        <Button type="primary" onClick={() => handleModalOpen(true)}>
-          Login
-        </Button>
-        <Button onClick={() => handleModalOpen(false)}>Sign Up</Button>
+      <div className="header__auth-buttons">
+        <button
+          onClick={() => handleModalOpen(true)}
+          className="header__login-btn"
+        >
+          შესვლა
+        </button>
       </div>
     </>
   );

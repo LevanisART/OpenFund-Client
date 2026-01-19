@@ -1,5 +1,5 @@
 import axios from "axios";
-const apiURL = import.meta.env.VITE_APP_API_URL;
+const apiURL = import.meta.env.VITE_APP_API_URL || "http://localhost";
 
 const axiosClient = axios.create({
   baseURL: new URL(apiURL).toString(),
@@ -16,7 +16,7 @@ axiosClient.interceptors.response.use(
       localStorage.removeItem("accessToken");
     }
     return Promise.reject(err);
-  }
+  },
 );
 
 export default axiosClient;
